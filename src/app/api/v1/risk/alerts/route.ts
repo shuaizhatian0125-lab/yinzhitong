@@ -1,0 +1,50 @@
+import { NextRequest } from 'next/server';
+import { z } from 'zod';
+import { success, error, ErrorCode, jsonResponse } from '@/lib/api-response';
+import { getCurrentUserFromJwt } from '@/lib/auth';
+import { listAlerts } from '@/server/modules/risk/risk-service';
+
+const listSchema = z.object({
+  type: z.enum(['task_overdue', 'work_anomaly', 'enterprise_risk', 'industry_risk', 'info_change']).optional(),
+  severity: z.enum(['low', 'medium', 'high', 'critical']).optional(),
+  status: z.enum(['open', 'acknowledged', 'resolved', 'false_positive']).optional(),
+  assignee_id: z.string().optional(),
+  page: z.coerce.number().int().min(1).default(1),
+  page_size: z.coerce.number().int().min(1).max(100).default(20),
+});
+
+export async function GET(request: NextRequest): Promise<Response> {
+  const user = await getCurrentUserFromJwt(request);
+  if (!user) {
+    return jsonResponse(error(ErrorCode.UNAUTHORIZED, '未登录或登录已过期'), 401);
+  }
+
+  const params = Object.fromEntries(request.nextUrl.searchParams.entries());
+  const parsed = listSchema.safeParse(params);
+  if (!parsed.success) {
+    return jsonResponse(
+      error(ErrorCode.BAD_REQUEST, '参数校验失败', {
+        issues: parsed.error.issues.map((i) => ({ path: i.path, message: i.message })),
+      }),
+      400,
+    );
+  }
+
+  const result = await listAlerts(user.tenantId, {
+    type: parsed.data.type,
+    severity: parsed.data.severity,
+    status: parsed.data.status,
+    assigneeId: parsed.data.assignee_id,
+    page: parsed.data.page,
+    pageSize: parsed.data.page_size,
+  });
+
+  return jsonResponse(
+    success({
+      items: result.items,
+      total: result.total,
+      page: parsed.data.page,
+      page_size: parsed.data.page_size,
+    }),
+  );
+}

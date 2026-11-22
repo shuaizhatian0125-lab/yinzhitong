@@ -1,0 +1,56 @@
+-- TVD 迁移 0001_tvd_init 回滚 —— 由 scripts/tvd-gen-migration.mjs 生成，请勿手改。
+-- 顺序与 up 相反；CASCADE 仅作用于 tvd_* 对象。
+
+DROP TABLE IF EXISTS "tvd_reports" CASCADE;
+DROP TABLE IF EXISTS "tvd_report_sections" CASCADE;
+DROP TABLE IF EXISTS "tvd_products" CASCADE;
+DROP TABLE IF EXISTS "tvd_match_results" CASCADE;
+DROP TABLE IF EXISTS "tvd_benchmark_sets" CASCADE;
+DROP TABLE IF EXISTS "tvd_benchmark_results" CASCADE;
+DROP TABLE IF EXISTS "tvd_benchmark_members" CASCADE;
+DROP TABLE IF EXISTS "tvd_score_evidence_links" CASCADE;
+DROP TABLE IF EXISTS "tvd_assessment_scores" CASCADE;
+DROP TABLE IF EXISTS "tvd_assessment_runs" CASCADE;
+DROP TABLE IF EXISTS "tvd_assessment_models" CASCADE;
+DROP TABLE IF EXISTS "tvd_assessment_model_versions" CASCADE;
+DROP TABLE IF EXISTS "tvd_assessment_indicators" CASCADE;
+DROP TABLE IF EXISTS "tvd_tracks" CASCADE;
+DROP TABLE IF EXISTS "tvd_industry_nodes" CASCADE;
+DROP TABLE IF EXISTS "tvd_industry_edges" CASCADE;
+DROP TABLE IF EXISTS "tvd_enterprise_chain_positions" CASCADE;
+DROP TABLE IF EXISTS "tvd_people" CASCADE;
+DROP TABLE IF EXISTS "tvd_patents" CASCADE;
+DROP TABLE IF EXISTS "tvd_patent_stats" CASCADE;
+DROP TABLE IF EXISTS "tvd_patent_quality_assessments" CASCADE;
+DROP TABLE IF EXISTS "tvd_patent_inventors" CASCADE;
+DROP TABLE IF EXISTS "tvd_patent_anomalies" CASCADE;
+DROP TABLE IF EXISTS "tvd_review_tasks" CASCADE;
+DROP TABLE IF EXISTS "tvd_fact_conflicts" CASCADE;
+DROP TABLE IF EXISTS "tvd_fact_claims" CASCADE;
+DROP TABLE IF EXISTS "tvd_evidence_links" CASCADE;
+DROP TABLE IF EXISTS "tvd_evidence_independence" CASCADE;
+DROP TABLE IF EXISTS "tvd_evidence" CASCADE;
+DROP TABLE IF EXISTS "tvd_conflict_resolutions" CASCADE;
+DROP TABLE IF EXISTS "tvd_source_records" CASCADE;
+DROP TABLE IF EXISTS "tvd_source_lineage" CASCADE;
+DROP TABLE IF EXISTS "tvd_signals" CASCADE;
+DROP TABLE IF EXISTS "tvd_signal_sources" CASCADE;
+DROP TABLE IF EXISTS "tvd_data_sources" CASCADE;
+DROP TABLE IF EXISTS "tvd_enterprises" CASCADE;
+DROP TABLE IF EXISTS "tvd_enterprise_profiles" CASCADE;
+DROP TABLE IF EXISTS "tvd_enterprise_aliases" CASCADE;
+
+DROP TYPE IF EXISTS "tvd_verification_status";
+DROP TYPE IF EXISTS "tvd_source_tier";
+DROP TYPE IF EXISTS "tvd_source_access_method";
+DROP TYPE IF EXISTS "tvd_signal_type";
+DROP TYPE IF EXISTS "tvd_review_task_state";
+DROP TYPE IF EXISTS "tvd_record_status";
+DROP TYPE IF EXISTS "tvd_patent_type";
+DROP TYPE IF EXISTS "tvd_patent_legal_status";
+DROP TYPE IF EXISTS "tvd_dimension";
+DROP TYPE IF EXISTS "tvd_data_kind";
+DROP TYPE IF EXISTS "tvd_conflict_type";
+DROP TYPE IF EXISTS "tvd_conflict_severity";
+DROP TYPE IF EXISTS "tvd_confidence_level";
+DROP TYPE IF EXISTS "tvd_patent_anomaly_type";
